@@ -36,8 +36,8 @@ Player เเละ Enemy ได้ Item 1 ชิ้นเเบบสุ่ม�
 | Java | Programming Language |
 | Figma | ออกเเบบ UI |
 | JMonkeyEngine | สร้างฉากเเละโมเดล 3D |
+| Github | ทำงานร่วมกันกับทีม |
 <!--| CSV | Data Storage |-->
-| Github |ทำงานร่วมกันกับทีม |
 
 ## โครงสร้าง Project
 <!---->
