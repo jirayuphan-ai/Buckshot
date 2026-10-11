@@ -1,0 +1,14 @@
+Animation/Animation_Type.java
+Image/Enemy.png
+Image/Enemy_heart.png
+Image/Gamescreen.png
+Image/Heart.png
+Image/Player.png
+Image/Shotgun.png
+Image/Slot1.png
+Image/Slot2.png
+Image/Slot3.png
+Image/Slot4.png
+Image/Table.png
+Sound/sfx/Sound_Type.java
+libgdx.png
