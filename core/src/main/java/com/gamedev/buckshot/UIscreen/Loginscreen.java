@@ -23,7 +23,7 @@ public class Loginscreen extends Mainmenuscreen {
 
     private String playerName = "";
     private String errorMsg = "";
-    private float blinkTimer = 0f;
+    private float blinkTimer = 1f;
 
      public Loginscreen(Main game) {
         super(game);               
@@ -81,6 +81,7 @@ public class Loginscreen extends Mainmenuscreen {
 
         // ใช้เมธอด drawCentered และ drawButton ที่สืบทอดมาจาก Mainmenuscreen ได้เลย
         drawCentered(titleFont, "Buckshot", W / 2f, 800f);
+        drawCentered(buttonFont, "Enter Your name Bro", W / 2f, 600f);
 
         // วาดกล่องพิมพ์ชื่อ
         batch.setColor(0.92f, 0.92f, 0.92f, 1f);
@@ -92,7 +93,7 @@ public class Loginscreen extends Mainmenuscreen {
 
         // วาดปุ่ม EXIT
         drawButton(exit, "EXIT");
-        
+        //drawButton(Return, "Return MENU");
 
         // แสดงข้อความแจ้งเตือนกรณีเว้นวรรคเกิน 2 ครั้ง
         if (!errorMsg.isEmpty()) {
@@ -114,7 +115,7 @@ public class Loginscreen extends Mainmenuscreen {
                 spaceCount++;
             }
         }
-        if (spaceCount > 2) {
+        if (spaceCount == 2) {
             errorMsg = "Dont 2 Space Bro";
             return;
         }
@@ -133,7 +134,7 @@ public class Loginscreen extends Mainmenuscreen {
                 pw.println("PlayerName,LoginTime");
             }
             String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            pw.println("\"" + name + "\"," + time);
+            pw.println("\"" + name + "\", " + time);
         } catch (IOException e) {
             System.err.println("CSV Error: " + e.getMessage());
         }

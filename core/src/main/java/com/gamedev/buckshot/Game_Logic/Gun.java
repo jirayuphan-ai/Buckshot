@@ -3,23 +3,20 @@ package com.gamedev.buckshot.Game_Logic;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * ปืนลูกซอง: เก็บกระสุนที่เหลือเป็น List (หัวแถว index 0 = นัดที่จะลั่นถัดไป)
- * GameManager เป็นเจ้าของ (composition) และเป็นคนสุ่ม/สลับกระสุนก่อนส่งมา load()
- */
+    // ปืนลูกซอง: เก็บกระสุนที่เหลือเป็น List 
 public class Gun {
     private final List<Shell_Type> shells = new ArrayList<>();
-    /** มีดทำให้นัดถัดไปแรง 2 เท่า (รีเซ็ตหลังยิง) — ส่วนเสริมจาก Class Diagram */
+    // มีดทำให้นัดถัดไปแรง 2 เท่า 
     private boolean doubled = false;
 
-    /** บรรจุกระสุนชุดใหม่ (ล้างของเก่าทิ้ง) */
+    // บรรจุกระสุนชุดใหม่ ล้างของเก่าทิ้ง 
     public void load(List<Shell_Type> newShells) {
         shells.clear();
         shells.addAll(newShells);
         doubled = false;
     }
 
-    /** ลั่นนัดหัวแถว แล้วเอาออกจากรังเพลิง */
+    // ยิงนัดเเรกสุด ยิงแล้วเอาออกจาก index
     public Shell_Type fire() {
         if (shells.isEmpty()) {
             throw new IllegalStateException("Gun is empty");
@@ -28,7 +25,7 @@ public class Gun {
         return shells.remove(0);
     }
 
-    /** ดูนัดหัวแถวโดยไม่เอาออก (แว่นขยาย) — ว่างจะได้ null */
+    // แว่นขยาย — ว่างจะได้ null 
     public Shell_Type peek() {
         return shells.isEmpty() ? null : shells.get(0);
     }
@@ -41,9 +38,7 @@ public class Gun {
         return shells.size();
     }
 
-    // ---------- ส่วนเสริม (ไม่อยู่ใน Class Diagram เดิม) ----------
-
-    /** ดึงนัดหัวแถวทิ้งโดยไม่ยิง (น้ำอัดลม) */
+    // น้ำอัดลม
     public Shell_Type eject() {
         if (shells.isEmpty()) {
             throw new IllegalStateException("Gun is empty");
@@ -71,7 +66,7 @@ public class Gun {
         return doubled;
     }
 
-    /** ดาเมจของนัดถัดไป (อ่านก่อน fire() เพราะ fire() จะรีเซ็ต) */
+    // ดาเมจของนัดถัดไป 
     public int getDamage() {
         return doubled ? 2 : 1;
     }

@@ -5,16 +5,14 @@ import com.badlogic.gdx.utils.Disposable;
 import java.util.EnumMap;
 import java.util.Map;
 
-/**
- * ตัวจัดการเสียงทั้งเกม: play(SoundType) -> หา SoundEffect ที่ตรงกันแล้วเล่น
- * GameManager เรียกตอนยิง/ใช้ไอเทม (เส้น triggers), GameScreen เรียกตอนหยิบปืน
- */
+
+  //ตัวจัดการเสียงทั้งเกม
+  
 public class Sound implements Disposable {
     private final Map<Sound_Type, SoundEffect> effects = new EnumMap<>(Sound_Type.class);
     private SoundEffect current;
     private float volume = 1f;
 
-    /** ต้องสร้างหลัง LibGDX เริ่มแล้ว (เช่น ใน show()) เพราะโหลดไฟล์ผ่าน Gdx.audio */
     public Sound() {
         for (Sound_Type t : Sound_Type.values()) {
             effects.put(t, new SoundEffect(t.getFile()));

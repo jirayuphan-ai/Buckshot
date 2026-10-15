@@ -1,7 +1,7 @@
 package com.gamedev.buckshot.UIscreen;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Gdx; 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
  */
 public class Main extends Game { // Extend LibGDX create start setScreen
     private Screen currentScreen;
+    private String Playername ;
 
     @Override
     public void create() {
@@ -27,13 +28,22 @@ public class Main extends Game { // Extend LibGDX create start setScreen
         setScreen(new Mainmenuscreen(this));
     }
 
-    public void setScreen(Screen s) {
+    @Override 
+    public void setScreen(Screen s) { //สลับหน้าจอไปมา
         currentScreen = s;
         super.setScreen(s);   // เรียก hide() หน้าเก่า -> show() หน้าใหม่ ให้เอง
     }
 
     public Screen getCurrentScreen() {
         return currentScreen;
+    }
+
+    public String getPlayerName(){
+        return Playername;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.Playername = playerName;
     }
 
     // ---------- ตัวช่วยที่ทุกหน้าจอใช้ร่วมกัน ----------
@@ -58,4 +68,5 @@ public class Main extends Game { // Extend LibGDX create start setScreen
         pm.dispose();
         return t;
     }
+
 }
