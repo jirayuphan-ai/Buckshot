@@ -7,7 +7,7 @@ import com.gamedev.buckshot.Character.Character;
 // แว่นขยาย ดูกระสุนนัดปัจจุบัน 
 public class Magnifier extends Item {
     public Magnifier() {
-        super("Magnifier", "assets/Image/Magnifier.png");
+        super("Magnifier", "Image/Magnifier.png");
     }
 
     @Override

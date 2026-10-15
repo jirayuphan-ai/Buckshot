@@ -7,7 +7,7 @@ import com.gamedev.buckshot.Character.Character;
 // น้ำอัดลม ดึงกระสุนนัดปัจจุบันออก 1 นัด 
 public class Soda extends Item {
     public Soda() {
-        super("Soda", "assets/Image/Soda.png");
+        super("Soda", "Image/Soda.png");
     }
 
     @Override

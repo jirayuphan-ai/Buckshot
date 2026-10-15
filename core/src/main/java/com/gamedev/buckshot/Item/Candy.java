@@ -6,7 +6,7 @@ import com.gamedev.buckshot.Character.Character;
 /** ลูกอม: เพิ่ม HP 1 หัวใจ (ไม่เกิน maxHp) */
 public class Candy extends Item {
     public Candy() {
-        super("Candy", "assets/Image/Candy.png");
+        super("Candy", "Image/Candy.png");
     }
 
     @Override
