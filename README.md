@@ -1,52 +1,33 @@
-# Buckshot 
+# Game_Buckshot
 
-เกมเป็น 2D พัฒนาด้วย Java + LibGDX
+A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
 
-## สมาชิกกลุ่มเเละความรับผิดชอบ
+This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws libGDX logo.
 
-| ชื่อ | รหัสนักศึกษา |---|
-|---|---|---|
-| นายจิรายุ พันธุรพงศ์ | 6821651124 |---|
+## Platforms
 
-## เกี่ยวกับเกม
+- `core`: Main module with the application logic shared by all platforms.
+- `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.
 
-Player เเละ Enemy ผลัดกันยิงปืนลูกซองที่บรรจุกระสุนจริง/กระสุนเปล่าเเบบสุ่ม
-Player เเละ Enemy ได้ Item 1 ชิ้นเเบบสุ่มเมื่อเริ่มเทิร์นที่ 2 เเละเปลื่ยนเป็นสุ่ม Item 2 ชิ้นเมื่อเริ่มเทิร์นที่ 4 
+## Gradle
 
-## ระบบหลักของเกม
+This project uses [Gradle](https://gradle.org/) to manage dependencies.
+The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
+Useful Gradle tasks and flags:
 
-- ระบบสุ่มกระสุนจริง/กระสุนเปล่าในเเต่ละเทิร์น เริ่มต้นที่ 3 นัดเเล้วเพิ่มขึ้น 1 นัดในทุกๆเทิร์นที่เริ่ม
-- ระบบผลัดกันยังในเเต่ละเทิร์น Player/Enemy 
-- เริ่มเทิร์นเเรกจะใส่กระสุนทั้งหมด 3 นัด เเละกระสุนจะเพิ่มขึ้นในทุกเทิร์นที่เล่น
-- Item: 
-    - เเว่นขยาย(ดูกระสุนนัดปัจจุบัน) 
-    - ลูกอม(เพิ่ม HP)
-    - น้ำอัดลม(ดึงกระสุนนัดปัจจุบันออก 1 นัด)
-    - มีด(เพิ่มความเสียหายเป็น 2 เท่า)
-- ระบบคลิกเเละเลือกเป้าหมาย
-- Animation
-    - หยิบปืน
-    - วางปืน
-    - ใช้ Item 
-        - เเว่นขยาย มีด ลูกอม น้ำอัดลม 
-    - ยิงปืน
-    - ชักกระสุน
-    - รีโหลดปืน
-- Sound
-    - เสียงการรีโหลดปืน
-    - ยิงปืน
-    - ใช้ Item
+- `--continue`: when using this flag, errors will not stop the tasks from running.
+- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
+- `--offline`: when using this flag, cached dependency archives will be used.
+- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
+- `build`: builds sources and archives of every project.
+- `cleanEclipse`: removes Eclipse project data.
+- `cleanIdea`: removes IntelliJ project data.
+- `clean`: removes `build` folders, which store compiled classes and built archives.
+- `eclipse`: generates Eclipse project data.
+- `idea`: generates IntelliJ project data.
+- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/libs`.
+- `lwjgl3:run`: starts the application.
+- `test`: runs unit tests (if any).
 
-## เทคโนโลยีที่ใช้
-| เทคโนโลยี | หน้าที่ |
-|---|---|
-| Java | Programming Language |
-| Figma | ออกเเบบ UI |
-| LibGDX | สร้างฉากเเละanimation 2D |
-| Github | Commit code|
-<!--| CSV | Data Storage |-->
-
-## ข้อมูลโครงงาน
-- รายวิชา: Software Construction
-- รหัสวิชา: 01418211
-- อาจารย์ผู้สอน: อาจารย์กฤษณะ ตรีฉลอง
+Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
+For example, `core:clean` removes `build` folder only from the `core` project.
