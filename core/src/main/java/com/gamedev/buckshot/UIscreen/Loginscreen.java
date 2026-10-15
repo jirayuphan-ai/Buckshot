@@ -133,7 +133,7 @@ public class Loginscreen extends Mainmenuscreen {
         try (FileWriter fw = new FileWriter(file, true);
              PrintWriter pw = new PrintWriter(fw)) {
             if (isNew) {
-                pw.println("PlayerName,LoginTime");
+                pw.println("PlayerName, LoginTime");
             }
             String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             pw.println("\"" + name + "\", " + time);

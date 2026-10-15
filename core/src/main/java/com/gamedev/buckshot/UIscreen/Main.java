@@ -46,7 +46,7 @@ public class Main extends Game { // Extend LibGDX create start setScreen
         this.Playername = playerName;
     }
 
-    // ---------- ตัวช่วยที่ทุกหน้าจอใช้ร่วมกัน ----------
+    // ตัวช่วยที่ทุกหน้าจอใช้ร่วมกัน 
 
     /** สร้างฟอนต์คมๆ จากไฟล์ .otf ด้วย FreeType (ต้อง dispose() เองเมื่อเลิกใช้) */
     public BitmapFont createFont(int size, Color color) {
