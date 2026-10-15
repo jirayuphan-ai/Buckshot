@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 /**
  * แอนิเมชันชุดเดียว = รูปหลายเฟรมเล่นเรียงกัน เฟรมละ frameTime วินาที (เล่นครั้งเดียวแล้วจบ)
+ * (LibGDX มีคลาส Animation<TextureRegion> สำเร็จรูปด้วย — แต่ใช้ตาม Class Diagram: Texture[])
  */
 public class SpriteAnimation {
     private final Texture[] frames;

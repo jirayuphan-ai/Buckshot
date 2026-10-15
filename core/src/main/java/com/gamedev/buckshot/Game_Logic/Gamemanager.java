@@ -10,17 +10,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-/*
- *   turn = รอบ: เริ่มรอบใหม่ -> บรรจุกระสุนใหม่ + แจกไอเทม
- *   ผลัดกันยิงจนกระสุนหมดปืน แล้วขึ้นรอบใหม่
- *   ยิงตัวเองด้วยกระสุนเปล่า = ได้เล่นต่อ 
- * GameScreen สั่งงานผ่าน startTurn/shoot/useItem
+/**
+ * หัวใจของเกม (กฎทั้งหมดอยู่ที่นี่ ไม่มีโค้ดวาดภาพ):
+ *  - turn = รอบ: เริ่มรอบใหม่ -> บรรจุกระสุนใหม่ + แจกไอเทม
+ *  - ผลัดกันยิงจนกระสุนหมดปืน แล้วขึ้นรอบใหม่
+ *  - ยิงตัวเองด้วยกระสุนเปล่า = ได้เล่นต่อ (นอกนั้นเปลี่ยนคน)
+ * GameScreen สั่งงานผ่าน startTurn/shoot/useItem แล้วอ่านผลลัพธ์จาก getter
  */
 public class Gamemanager {
     public static final int MAX_HP = 4;
     public static final int MAX_SHELLS = 8;
 
-    // ชนิดการกระทำล่าสุด — ให้ UI รู้ว่าต้องเล่น Animation
+    /** ชนิดการกระทำล่าสุด — ให้ UI รู้ว่าต้องเล่นแอนิเมชันอะไร */
     public enum ActionType { NONE, SHOT, ITEM }
 
     private int turn = 0;
@@ -32,7 +33,7 @@ public class Gamemanager {
     private final Sound audisound;      // null ได้ (ตอนเทสต์ที่ไม่มีเสียง)
     private final Random rng;
 
-    // ผลลัพธ์ล่าสุด ให้ UI อ่าน 
+    // ---- ผลลัพธ์ล่าสุด ให้ UI อ่าน ----
     private String message = "";
     private ActionType lastAction = ActionType.NONE;
     private int actionCount = 0;
@@ -55,7 +56,9 @@ public class Gamemanager {
         this.current = player;
     }
 
-    // เริ่มรอบใหม่: turn+1, บรรจุกระสุน, แจกไอเทม, กำหนดว่าใครเริ่ม (รอบคี่ = ผู้เล่น) 
+    // ================= กฎหลัก =================
+
+    /** เริ่มรอบใหม่: turn+1, บรรจุกระสุน, แจกไอเทม, กำหนดว่าใครเริ่ม (รอบคี่ = ผู้เล่น) */
     public void startTurn() {
         turn++;
         gun.load(buildShells(shellsForTurn(turn)));
@@ -72,7 +75,7 @@ public class Gamemanager {
         message = "Turn " + turn + ": " + loadedLive + " live, " + loadedBlank + " blank";
     }
 
-    // current ยิง target (ตัวเองหรือคู่ต่อสู้) 
+    /** current ยิง target (ตัวเองหรือคู่ต่อสู้) */
     public void shoot(Character target) {
         if (isGameOver() || gun.isEmpty()) return;
 
@@ -114,7 +117,7 @@ public class Gamemanager {
         }
     }
 
-    // current ใช้ไอเทมช่อง slot (ถ้าช่องว่างจะไม่ทำอะไร) 
+    /** current ใช้ไอเทมช่อง slot (ถ้าช่องว่างจะไม่ทำอะไร) */
     public void useItem(int slot) {
         if (isGameOver()) return;
         Item item = current.removeItem(slot);
@@ -145,7 +148,7 @@ public class Gamemanager {
 
         String itemMsg = nameOf(user) + " used " + item.getName() + ": " + result;
         message = itemMsg;
-        if (gun.isEmpty()) {  // น้ำอัดลมดึงนัดสุดท้ายออก ขึ้นรอบใหม่
+        if (gun.isEmpty()) {          // น้ำอัดลมดึงนัดสุดท้ายออก -> ขึ้นรอบใหม่
             startTurn();
             message = itemMsg + "\n" + message;
         }
@@ -159,12 +162,14 @@ public class Gamemanager {
         return player.isDead() || enemy.isDead();
     }
 
-    // ผู้ชนะ (ยังไม่จบเกมจะได้ null) 
+    /** ผู้ชนะ (ยังไม่จบเกมจะได้ null) */
     public Character getWinner() {
         if (player.isDead()) return enemy;
         if (enemy.isDead()) return player;
         return null;
     }
+
+    // ================= ฟังก์ชันภายใน =================
 
     private int shellsForTurn(int t) {
         return Math.min(MAX_SHELLS, 2 + t);
@@ -185,7 +190,7 @@ public class Gamemanager {
         }
     }
 
-    // n นัด: จริงอย่างน้อย 1 เปล่าอย่างน้อย 1 แล้วสลับลำดับ 
+    /** n นัด: จริงอย่างน้อย 1 เปล่าอย่างน้อย 1 แล้วสลับลำดับ */
     private List<Shell_Type> buildShells(int n) {
         int live = 1 + rng.nextInt(n - 1);
         List<Shell_Type> list = new ArrayList<>();
@@ -207,7 +212,7 @@ public class Gamemanager {
         return c == player ? "Player" : "Enemy";
     }
 
-    //  getter ให้ UI / Enemy ใช้ 
+    // ================= getter ให้ UI / Enemy ใช้ =================
     public int getTurn() { 
         return turn; 
     }

@@ -18,20 +18,20 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  * implements Screen ของ LibGDX: show() = สร้างของ, render() = วาด+รับคลิกทุกเฟรม, hide() = ทิ้งของ
  */
 public class Mainmenuscreen implements Screen {
-    protected  static final float W = 1920f, H = 1080f;
+    private static final float W = 1920f, H = 1080f;
 
-    protected final Main game;
-    protected SpriteBatch batch;
-    protected OrthographicCamera camera;
-    protected FitViewport viewport;
-    protected BitmapFont titleFont, buttonFont;
-    protected Texture pixel;
-    protected final GlyphLayout layout = new GlyphLayout();
-    protected final Vector2 touch = new Vector2();
+    private final Main game;
+    private SpriteBatch batch;
+    private OrthographicCamera camera;
+    private FitViewport viewport;
+    private BitmapFont titleFont, buttonFont;
+    private Texture pixel;
+    private final GlyphLayout layout = new GlyphLayout();
+    private final Vector2 touch = new Vector2();
 
     // พิกัดจาก Figma (แกน y ลง) แปลงเป็นแกน y ขึ้นของ LibGDX: y = 1080 - figmaY - สูง
-    protected final Rectangle play = new Rectangle(738, H - 750 - 118, 444, 118);
-    protected final Rectangle exit = new Rectangle(738, H - 920 - 118, 444, 118);
+    private final Rectangle playBtn = new Rectangle(738, H - 750 - 118, 444, 118);
+    private final Rectangle exitBtn = new Rectangle(738, H - 920 - 118, 444, 118);
 
     public Mainmenuscreen(Main game) {
         this.game = game;
@@ -54,11 +54,11 @@ public class Mainmenuscreen implements Screen {
         touch.set(Gdx.input.getX(), Gdx.input.getY());
         viewport.unproject(touch);
         if (Gdx.input.justTouched()) {
-            if (play.contains(touch.x, touch.y)) {
+            if (playBtn.contains(touch.x, touch.y)) {
                 onPlayClicked();
                 return;   // เปลี่ยนหน้าแล้ว ห้ามใช้ batch ที่ถูก dispose ต่อ
             }
-            if (exit.contains(touch.x, touch.y)) {
+            if (exitBtn.contains(touch.x, touch.y)) {
                 onExitClicked();
                 return;
             }
@@ -70,20 +70,20 @@ public class Mainmenuscreen implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         drawCentered(titleFont, "Buckshot", W / 2f, 630f);
-        drawButton(play, "Play");
-        drawButton(exit, "Exit");
+        drawButton(playBtn, "Play");
+        drawButton(exitBtn, "Exit");
         batch.end();
     }
 
     public void onPlayClicked() {
-        game.setScreen(new Loginscreen(game));
+        game.setScreen(new Gamescreen(game));
     }
 
     public void onExitClicked() {
         Gdx.app.exit();
     }
 
-    protected  void drawButton(Rectangle r, String label) {
+    private void drawButton(Rectangle r, String label) {
         boolean hover = r.contains(touch.x, touch.y);
         batch.setColor(hover ? 0.80f : 0.851f, hover ? 0.80f : 0.851f, hover ? 0.80f : 0.851f, 1f); // D9D9D9
         batch.draw(pixel, r.x, r.y, r.width, r.height);
@@ -92,7 +92,7 @@ public class Mainmenuscreen implements Screen {
     }
 
     /** วาดข้อความให้กึ่งกลางอยู่ที่ (cx, cy) */
-    protected  void drawCentered(BitmapFont font, String text, float cx, float cy) {
+    private void drawCentered(BitmapFont font, String text, float cx, float cy) {
         layout.setText(font, text);
         font.draw(batch, text, cx - layout.width / 2f, cy + layout.height / 2f);
     }
@@ -102,12 +102,8 @@ public class Mainmenuscreen implements Screen {
         viewport.update(width, height, true);
     }
 
-    @Override 
-    public void pause() { 
-    }
-    @Override 
-    public void resume() { 
-    }
+    @Override public void pause() { }
+    @Override public void resume() { }
 
     @Override
     public void hide() {

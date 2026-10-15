@@ -1,5 +1,6 @@
 package com.gamedev.buckshot.Sound;
 
+/** รายการเสียงทั้งหมดในเกม — ชื่อ enum ตรงกับชื่อไฟล์ใน resources/sounds/ (ตัวเล็ก + .wav) */
 public enum Sound_Type {
     
     PICK_UP_GUN,

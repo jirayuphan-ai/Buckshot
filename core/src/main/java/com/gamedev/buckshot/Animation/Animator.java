@@ -20,7 +20,7 @@ public class Animator implements Disposable {
     private final List<Texture> allTextures = new ArrayList<>();
     private SpriteAnimation current;
 
-    // โหลดเฟรมทุกชนิดจาก Image
+    /** โหลดเฟรมทุกชนิดจาก resources/anim (เรียงตามเลข จนกว่าจะไม่เจอไฟล์) */
     public Animator() {
         for (AnimationType type : AnimationType.values()) {
             List<Texture> frames = new ArrayList<>();
@@ -47,7 +47,7 @@ public class Animator implements Disposable {
         return current != null && !current.isFinished();
     }
 
-    // เฟรมที่ต้องวาดตอนนี้ ไม่ได้เล่นอยู่ = null
+    /** เฟรมที่ต้องวาดตอนนี้ (ไม่ได้เล่นอยู่ = null) */
     public Texture getCurrentFrame() {
         return isPlaying() ? current.getCurrentFrame() : null;
     }

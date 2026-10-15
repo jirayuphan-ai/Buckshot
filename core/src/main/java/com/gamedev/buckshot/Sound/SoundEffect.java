@@ -4,6 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Disposable;
 
+/**
+ * เสียงเอฟเฟกต์ 1 ไฟล์ — ห่อ com.badlogic.gdx.audio.Sound ของ LibGDX
+ * (เขียนชื่อเต็มเพราะชื่อซ้ำกับคลาส Sound ของเราเอง)
+ * LibGDX Sound ไม่มี isPlaying() เราเลยจับเวลาเองจากความยาวไฟล์ WAV
+ */
 public class SoundEffect implements Disposable {
     private final String sfxFile;
     private com.badlogic.gdx.audio.Sound sound;   // null = โหลดไม่ได้ -> เงียบ แต่เกมไม่พัง
@@ -46,6 +51,7 @@ public class SoundEffect implements Disposable {
         if (sound != null) sound.dispose();
     }
 
+    /** อ่านความยาวจาก header ของ WAV (PCM มาตรฐาน 44 ไบต์) ไม่ใช่ WAV -> ถือว่า 1 วินาที */
     private static float readWavSeconds(FileHandle fh) {
         try {
             byte[] b = fh.readBytes();

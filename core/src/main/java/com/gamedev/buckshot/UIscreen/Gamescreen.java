@@ -77,8 +77,8 @@ public class Gamescreen implements Screen {
         playerRect = new Rectangle(508, fy(530, 278), 164, 278);
         enemyRect = new Rectangle(1234, fy(530, 278), 164, 278);
         tableRect = new Rectangle(756, fy(574, 248), 408, 248);
-        Texture gun = tex("Image/Shotgun.png");
-        tableGunRect = new Rectangle(tableRect.x + 94, fy(520 + 18, gun.getHeight()), gun.getWidth(), gun.getHeight());
+        Texture gun = tex("assets/Image/Shotgun.png");
+        tableGunRect = new Rectangle(tableRect.x + 94, fy(574 + 18, gun.getHeight()), gun.getWidth(), gun.getHeight());
         for (int i = 0; i < Character.SLOTS; i++) {
             float x = 48 + i * 172;
             playerSlots[i] = new Rectangle(x, fy(76, 100), 120, 100);
@@ -96,9 +96,9 @@ public class Gamescreen implements Screen {
     //  วงจรหลักทุกเฟรม: render = อัปเดต แล้ววาด
     // =====================================================================
     @Override
-    public void render(float delta) { // Loop game 60 fps
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { // Check 1 pressed and exit game -> ESC
-            game.setScreen(new Mainmenuscreen(game)); // ESC -> MainMenu
+    public void render(float delta) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            game.setScreen(new Mainmenuscreen(game));
             return;
         }
         animator.update(delta);
@@ -204,21 +204,13 @@ public class Gamescreen implements Screen {
     /** วาดหัวใจของ c (ฝั่งซ้าย = ผู้เล่น, ขวา = ศัตรู) หัวใจที่เสียไปจะมืดลง */
     public void drawHearts(Character c) {
         float[] xs = (c == manager.getPlayer()) ? leftHeartX : rightHeartX;
-        Texture heart = tex("Image/heart.png");
+        Texture heart = tex("assets/Image/heart.png");
         for (int i = 0; i < c.getMaxHp(); i++) {
             if (i < c.getHp()) batch.setColor(Color.WHITE);
             else batch.setColor(0.25f, 0.25f, 0.25f, 0.6f);
             batch.draw(heart, xs[i], 26, heart.getWidth(), heart.getHeight());
         }
         batch.setColor(Color.WHITE);
-        float nameY = 26 + heart.getHeight() + 45;
-        if (c == manager.getPlayer()) {
-            String playerName = (game.getPlayerName() != null) ? game.getPlayerName() : "Player";
-            hudFont.draw(batch, playerName, leftHeartX[0], nameY);  
-        } else {
-            float totalHeartWidth = (rightHeartX[3] + heart.getWidth()) - rightHeartX[0];
-            hudFont.draw(batch, "Enemy", rightHeartX[0], nameY, totalHeartWidth, Align.right, false);
-        }
     }
 
     /** วาดช่องไอเทมทั้งสองฝั่ง (ช่องว่างวาดเป็นกรอบเทา) */
@@ -230,7 +222,7 @@ public class Gamescreen implements Screen {
     private void drawSlotRow(Character c, Rectangle[] rects) {
         for (int i = 0; i < Character.SLOTS; i++) {
             Item it = c.getItem(i);
-            Texture t = tex(it == null ? "Image/slot_empty.png" : it.getIconFile());
+            Texture t = tex(it == null ? "assets/Image/slot_empty.png" : it.getIconFile());
             batch.draw(t, rects[i].x, rects[i].y, rects[i].width, rects[i].height);
         }
     }
@@ -261,14 +253,10 @@ public class Gamescreen implements Screen {
     }
 
     private AnimationType animationFor(Item item) {
-        if (item instanceof Magnifier) 
-            return AnimationType.USE_MAGNIFIER;
-        if (item instanceof Candy) 
-            return AnimationType.USE_CANDY;
-        if (item instanceof Soda) 
-            return AnimationType.USE_SODA;
-        if (item instanceof Knife) 
-            return AnimationType.USE_KNIFE;
+        if (item instanceof Magnifier) return AnimationType.USE_MAGNIFIER;
+        if (item instanceof Candy) return AnimationType.USE_CANDY;
+        if (item instanceof Soda) return AnimationType.USE_SODA;
+        if (item instanceof Knife) return AnimationType.USE_KNIFE;
         return AnimationType.USE_MAGNIFIER;
     }
 
@@ -297,9 +285,9 @@ public class Gamescreen implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
-        batch.draw(tex("Image/Table.png"), tableRect.x, tableRect.y, tableRect.width, tableRect.height);
-        drawCharacter(manager.getPlayer(), tex("Image/Player.png"), playerRect);
-        drawCharacter(manager.getEnemy(), tex("Image/Enemy.png"), enemyRect);
+        batch.draw(tex("assets/Image/Table.png"), tableRect.x, tableRect.y, tableRect.width, tableRect.height);
+        drawCharacter(manager.getPlayer(), tex("assets/Image/Player.png"), playerRect);
+        drawCharacter(manager.getEnemy(), tex("assets/Image/Enemy.png"), enemyRect);
         drawGun();
         drawHearts(manager.getPlayer());
         drawHearts(manager.getEnemy());
@@ -325,7 +313,7 @@ public class Gamescreen implements Screen {
     }
 
     private void drawGun() {
-        Texture g = tex("Image/Shotgun.png");
+        Texture g = tex("assets/Image/Shotgun.png");
         if (heldBy == null) {
             batch.draw(g, tableGunRect.x, tableGunRect.y, g.getWidth(), g.getHeight());
             return;
@@ -338,7 +326,7 @@ public class Gamescreen implements Screen {
 
     /** ปืนที่อยู่ในมือ: ลอยอยู่หน้าคนถือ */
     private Rectangle heldGunRect() {
-        Texture g = tex("Image/Shotgun.png");
+        Texture g = tex("assets/Image/Shotgun.png");
         Rectangle holder = rectOf(heldBy);
         float dir = (heldBy == manager.getPlayer()) ? 1f : -1f;
         float cx = holder.x + holder.width / 2f + dir * 150f;
@@ -349,11 +337,9 @@ public class Gamescreen implements Screen {
     /** ปากกระบอกหันไปทางขวาไหม (ผู้เล่นอยู่ซ้าย ศัตรูอยู่ขวา) */
     private boolean pointsRight() {
         boolean holderIsPlayer = heldBy == manager.getPlayer();
-        if (aimTarget == null) 
-            return holderIsPlayer;            // ยังไม่เล็ง = หันหาคู่ต่อสู้
-        if (aimTarget == heldBy) 
-            return !holderIsPlayer;         // เล็งตัวเอง
-        return holderIsPlayer;              // เล็งคู่ต่อสู้
+        if (aimTarget == null) return holderIsPlayer;            // ยังไม่เล็ง = หันหาคู่ต่อสู้
+        if (aimTarget == heldBy) return !holderIsPlayer;         // เล็งตัวเอง
+        return holderIsPlayer;                                   // เล็งคู่ต่อสู้
     }
 
     private void drawHud() {
