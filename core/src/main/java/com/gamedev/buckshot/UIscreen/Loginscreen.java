@@ -50,10 +50,12 @@ public class Loginscreen extends Mainmenuscreen {
 
             @Override
             public boolean keyTyped(char character) {
-                if (character >= 32 && character != 127 && playerName.length() < 16) {
+                if (String.valueOf(character).matches("^[a-zA-Z0-9 _.-]*$") && playerName.length() < 13) {
                     playerName += character;
                     errorMsg = "";
                     return true;
+                } else if (character >= 32 && character != 127) {
+                    errorMsg = "Not Other Language Man English Only man";
                 }
                 return false;
             }
