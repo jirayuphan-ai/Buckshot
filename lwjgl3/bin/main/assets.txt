@@ -7,10 +7,6 @@ Image/Knife.png
 Image/Magnifier.png
 Image/Player.png
 Image/Shotgun.png
-Image/Slot1.png
-Image/Slot2.png
-Image/Slot3.png
-Image/Slot4.png
 Image/Soda.png
 Image/Table.png
 Image/fire_blank_0.png
@@ -23,7 +19,6 @@ Image/fire_live_1.png
 Image/fire_live_2.png
 Image/fire_live_3.png
 Image/fire_live_4.png
-Image/gun.png
 Image/pick_up_gun_0.png
 Image/pick_up_gun_1.png
 Image/pick_up_gun_2.png
@@ -58,5 +53,4 @@ Sound/use_candy.wav
 Sound/use_knife.wav
 Sound/use_magnifier.wav
 Sound/use_soda.wav
-fonts/Inter-Regular.otf
 libgdx.png

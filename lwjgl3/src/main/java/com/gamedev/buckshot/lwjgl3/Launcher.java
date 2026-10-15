@@ -11,7 +11,8 @@ public class Launcher {
         config.setTitle("Buckshot");
         config.setWindowedMode(1280, 720);
         config.setResizable(true);
+        config.useVsync(true);
         config.setForegroundFPS(100);
-        new Lwjgl3Application(new Main(), config); // วนลูปเกมเชื่อมกับ Main
+        new Lwjgl3Application(new Main(), config);
     }
 }
