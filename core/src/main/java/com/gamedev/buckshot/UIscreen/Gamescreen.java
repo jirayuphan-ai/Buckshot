@@ -24,7 +24,7 @@ import java.util.Map;
  */
 public class Gamescreen implements Screen {
     private static final float W = 1920f, H = 1080f;
-    private static final float ENEMY_DELAY = 2f;   // วินาทีที่ศัตรู "คิด" ก่อนทำแต่ละอย่าง
+    private static final float ENEMY_DELAY = 1.7f;   // วินาทีที่ศัตรู "คิด" ก่อนทำแต่ละอย่าง
 
     private final Main game;
     private Gamemanager manager;
